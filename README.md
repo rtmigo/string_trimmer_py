@@ -2,9 +2,6 @@
 
 `TripleTrimmer` removes unwanted parts from a string.
 
-Deletion occurs recursively in order to find the shortest possible string
-without prefixes, suffixes, etc.
-
 ## Examples
 
 ```python3
@@ -52,15 +49,13 @@ install_requires = [
 
 `TripleTrimmer` removes unwanted parts from a string.
 
-Unwanted parts are defined by lists.
-
 * Parts from the `prefixes` list will only be removed at the beginning of the
   string
 
 * Parts from the `suffixes` list will only be removed at the end of the string
 
-* Parts from the whole_words list - will turn the string into empty if it is
-  equal to any of the `words` elements.
+* Parts from the `words` list - will turn the string into empty if it is equal 
+  to any of the `words` elements
 
 Since the unwanted parts can be of different lengths, the trimmed strings can
 also be different.
