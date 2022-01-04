@@ -12,8 +12,7 @@ from string_trimmer import TripleTrimmer
 
 trimmer = TripleTrimmer(
     prefixes=["mr", "mrs", " ", "."],
-    suffixes=["esq.", "phd", " "],
-)
+    suffixes=["esq.", "phd", " "])
 
 print(trimmer.shortest("Mr. John Doe Esq.".lower()))
 # john doe
@@ -24,14 +23,13 @@ from string_trimmer import TripleTrimmer
 
 trimmer = TripleTrimmer(
     suffixes=["'ll"],
-    whole_words=["he", "she", "they"]
-)
+    whole_words=["he", "she", "they"])
 
 words = []
 for word in "she'll eat an ice cream".split():
-  trimmed = trimmer.shortest(word)
-  if trimmed:
-    words.append(trimmed)
+    trimmed = trimmer.shortest(word)
+    if trimmed:
+        words.append(trimmed)
     
 print(words)
 # ['eat', 'ice', 'cream']
