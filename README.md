@@ -5,14 +5,14 @@
 Deletion occurs recursively in order to find the shortest possible string
 without prefixes, suffixes, etc.
 
-## Example
+## Examples
 
 ```python3
 from string_trimmer import TripleTrimmer
 
 trimmer = TripleTrimmer(
-    prefixes=["mr", "mrs", " ", "."],
-    suffixes=["esq.", "phd", " "])
+    prefixes=["mr.", "mrs.", " "],
+    suffixes=[" esq", " phd", "."])
 
 print(trimmer.shortest("Mr. John Doe Esq.".lower()))
 # john doe
@@ -23,7 +23,7 @@ from string_trimmer import TripleTrimmer
 
 trimmer = TripleTrimmer(
     suffixes=["'ll"],
-    whole_words=["he", "she", "they"])
+    words=["he", "she", "they"])
 
 words = [trimmer.shortest(word) for word 
          in "she'll eat an ice cream".split()]
@@ -60,7 +60,7 @@ Unwanted parts are defined by lists.
 * Parts from the `suffixes` list will only be removed at the end of the string
 
 * Parts from the whole_words list - will turn the string into empty if it is
-  equal to any of the `whole_words` elements.
+  equal to any of the `words` elements.
 
 Since the unwanted parts can be of different lengths, the trimmed strings can
 also be different.

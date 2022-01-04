@@ -69,7 +69,7 @@ class TripleTrimmer(BaseTrimmer):
     * Parts from the `suffixes` list will only be removed at the end of
     the string
 
-    * Parts from the whole_words list - will turn the string into empty if it
+    * Parts from the `words` list - will turn the string into empty if it
     is equal to any of the `whole_words` elements.
 
     Since the unwanted parts can be of different lengths, the trimmed strings
@@ -85,10 +85,10 @@ class TripleTrimmer(BaseTrimmer):
     def __init__(self,
                  prefixes: Iterable[str] = None,
                  suffixes: Iterable[str] = None,
-                 whole_words: Iterable[str] = None):
+                 words: Iterable[str] = None):
         self._prefix_finder = PrefixTrimmer(prefixes or [])
         self._suffix_finder = SuffixTrimmer(suffixes or [])
-        self._whole_words = set(whole_words or [])
+        self._whole_words = set(words or [])
 
     def trim_once(self, word: str) -> List[str]:
         result: List[str] = []

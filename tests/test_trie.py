@@ -66,7 +66,7 @@ class TestTriple(unittest.TestCase):
         r = TripleTrimmer(
             prefixes=['aaa', 'aa'],
             suffixes=['bb', 'bbb'],
-            whole_words=["JUNK"])
+            words=["JUNK"])
 
         self.assertEqual(r.trim('something'), ['something'])
         self.assertEqual(r.trim('aasomething'), ['something'])
@@ -87,7 +87,7 @@ class TestTriple(unittest.TestCase):
         r = TripleTrimmer(
             prefixes=['aaa', 'aa'],
             suffixes=['bb', 'bbb'],
-            whole_words=["JUNK"])
+            words=["JUNK"])
         self.assertEqual(r.shortest('SOMETHING'), 'SOMETHING')
         self.assertEqual(r.shortest('aaaSOMETHINGbbb'), 'SOMETHING')
         self.assertEqual(r.shortest('JUNK'), '')
@@ -100,10 +100,10 @@ class TestTriple(unittest.TestCase):
     def test_no_suffixes(self):
         r = TripleTrimmer(
             prefixes=['aaa', 'aa'],
-            whole_words=["JUNK"])
+            words=["JUNK"])
 
     def test_no_prefixes(self):
         r = TripleTrimmer(
             suffixes=['bb', 'bbb'],
-            whole_words=["JUNK"])
+            words=["JUNK"])
 
