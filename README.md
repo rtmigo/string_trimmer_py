@@ -1,5 +1,7 @@
 # [string_trimmer](https://github.com/rtmigo/string_trimmer_py)
 
+## TripleTrimmer
+
 `TripleTrimmer` removes unwanted parts from a string.
 
 Unwanted parts are defined by lists.
@@ -21,6 +23,11 @@ of strings, not a single string.
 
 The `shortest` method returns a single string: the shortest possible
 when all unwanted parts removed.
+
+## PrefixTrimmer and SuffixTrimmer
+
+These objects act exactly like the TripleTrimmer, but only remove the 
+corresponding parts of the strings.
 
 ## Install
 
