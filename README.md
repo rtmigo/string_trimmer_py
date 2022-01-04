@@ -12,7 +12,7 @@ from string_trimmer import TripleTrimmer
 
 trimmer = TripleTrimmer(
     prefixes=["mr", "mrs", " ", "."],
-    suffixes=["esq.", "phd", " "])
+    suffixes=["esq", "phd", " ", "."])
 
 print(trimmer.shortest("Mr. John Doe Esq.".lower()))
 # john doe
