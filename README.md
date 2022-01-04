@@ -1,20 +1,25 @@
 # [string_trimmer](https://github.com/rtmigo/string_trimmer_py)
 
+`TripleTrimmer` removes unwanted parts from a string.
+
+Deletion occurs recursively in order to find the shortest possible string
+without prefixes, suffixes, etc.
+
 ## Example
 
 ```python3
 from string_trimmer import TripleTrimmer
 
 trimmer = TripleTrimmer(
-    prefixes=["A ", "The ", "Copyright ", "(c) "],
-    suffixes=[" Ltd.", " Corp."],
+    prefixes=["A", "The", "Copyright", "(c)", " "],
+    suffixes=["Ltd.", "Corp.", " "],
     whole_words=["Spam"]
 )
 
-print(trimmer.shortest("Copyright (c) The Umbrella Corp.")) 
+print(trimmer.shortest("Copyright (c) The Umbrella Corp."))
 # Umbrella
 
-print(trimmer.shortest("The Spam Ltd.")) 
+print(trimmer.shortest("The Spam Ltd."))
 # empty string
 ```
 
@@ -40,26 +45,24 @@ install_requires = [
 
 Unwanted parts are defined by lists.
 
-* Parts from the `prefixes` list will only be removed at the beginning of
-the string
+* Parts from the `prefixes` list will only be removed at the beginning of the
+  string
 
-* Parts from the `suffixes` list will only be removed at the end of
-the string
+* Parts from the `suffixes` list will only be removed at the end of the string
 
-* Parts from the whole_words list - will turn the string into empty if it
-is equal to any of the `whole_words` elements.
+* Parts from the whole_words list - will turn the string into empty if it is
+  equal to any of the `whole_words` elements.
 
-Since the unwanted parts can be of different lengths, the trimmed strings
-can also be different.
+Since the unwanted parts can be of different lengths, the trimmed strings can
+also be different.
 
-The `trim` method will try to trim the word in every possible way, repeating 
+The `trim` method will try to trim the word in every possible way, repeating
 attempts recursively. The result will be a list of strings.
 
-The `shortest` method returns a single string: the first of the shortest 
-strings returned by `trim`.
-
+The `shortest` method returns a single string: the first of the shortest strings
+returned by `trim`.
 
 ## PrefixTrimmer and SuffixTrimmer
 
-These objects act exactly like the TripleTrimmer, but only remove the 
+These objects act exactly like the TripleTrimmer, but only remove the
 corresponding parts of the strings.
