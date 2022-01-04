@@ -41,7 +41,7 @@ class TestSuffixRemover(unittest.TestCase):
         self.assertEqual(list(r.trim("ABChexxx")), ['ABC', 'ABChe'])
 
 
-class TestRemover(unittest.TestCase):
+class TestTriple(unittest.TestCase):
     def test_old(self):
         prefixes_and_suffixes = ["-suf1", "-suf22", 'junk', 'pre1-', 'pre22-']
         r = TripleTrimmer(prefixes_and_suffixes, prefixes_and_suffixes, [])
@@ -91,3 +91,19 @@ class TestRemover(unittest.TestCase):
         self.assertEqual(r.shortest('SOMETHING'), 'SOMETHING')
         self.assertEqual(r.shortest('aaaSOMETHINGbbb'), 'SOMETHING')
         self.assertEqual(r.shortest('JUNK'), '')
+
+    def test_no_whole_words(self):
+        r = TripleTrimmer(
+            prefixes=['aaa', 'aa'],
+            suffixes=['bb', 'bbb'])
+
+    def test_no_suffixes(self):
+        r = TripleTrimmer(
+            prefixes=['aaa', 'aa'],
+            whole_words=["JUNK"])
+
+    def test_no_prefixes(self):
+        r = TripleTrimmer(
+            suffixes=['bb', 'bbb'],
+            whole_words=["JUNK"])
+
