@@ -52,7 +52,7 @@ is equal to any of the `whole_words` elements.
 Since the unwanted parts can be of different lengths, the trimmed strings
 can also be different.
 
-Therefore, the `trimmed_once` and `trimmed_recursive` methods return list
+Therefore, the `trim_once` and `trim` methods return list
 of strings, not a single string.
 
 The `shortest` method returns a single string: the shortest possible

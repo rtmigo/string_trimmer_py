@@ -11,14 +11,14 @@ class TestPrefixRemover(unittest.TestCase):
     def test(self):
         r = PrefixTrimmer(["-suf1", "-suf2", 'junk', 'pre1-', 'pre2-'])
 
-        self.assertEqual(list(r.trimmed_recursive("word")), ["word"])
-        self.assertEqual(list(r.trimmed_recursive("pre1-abc")), ['abc'])
-        self.assertEqual(list(r.trimmed_recursive("pre2-pre1-abc")), ['abc'])
+        self.assertEqual(list(r.trim("word")), ["word"])
+        self.assertEqual(list(r.trim("pre1-abc")), ['abc'])
+        self.assertEqual(list(r.trim("pre2-pre1-abc")), ['abc'])
 
-        self.assertEqual(list(r.trimmed_recursive("junk")), [''])
-        self.assertEqual(list(r.trimmed_recursive("pre2-pre1-junk-suf1-suf2")),
+        self.assertEqual(list(r.trim("junk")), [''])
+        self.assertEqual(list(r.trim("pre2-pre1-junk-suf1-suf2")),
                          [''])
-        self.assertEqual(list(r.trimmed_recursive("pre2-pre1-word-suf1-suf2")),
+        self.assertEqual(list(r.trim("pre2-pre1-word-suf1-suf2")),
                          ['word-suf1-suf2'])
 
 
@@ -27,18 +27,18 @@ class TestSuffixRemover(unittest.TestCase):
         r = SuffixTrimmer(["-suf1", "-suf2", 'junk', 'pre1-', 'pre2-',
                            'xx', 'xxx', 'hex'])
 
-        self.assertEqual(list(r.trimmed_recursive("word")), ["word"])
-        self.assertEqual(list(r.trimmed_recursive("abc-suf1")), ['abc'])
-        self.assertEqual(list(r.trimmed_recursive("abc-suf1-suf2")), ['abc'])
-        self.assertEqual(list(r.trimmed_recursive("pre2-pre1-abc-suf1-suf2")),
+        self.assertEqual(list(r.trim("word")), ["word"])
+        self.assertEqual(list(r.trim("abc-suf1")), ['abc'])
+        self.assertEqual(list(r.trim("abc-suf1-suf2")), ['abc'])
+        self.assertEqual(list(r.trim("pre2-pre1-abc-suf1-suf2")),
                          ['pre2-pre1-abc'])
 
-        self.assertEqual(list(r.trimmed_recursive("junk")), [''])
-        self.assertEqual(list(r.trimmed_recursive("pre2-pre1-junk-suf1-suf2")),
+        self.assertEqual(list(r.trim("junk")), [''])
+        self.assertEqual(list(r.trim("pre2-pre1-junk-suf1-suf2")),
                          [''])
 
-        self.assertEqual(list(r.trimmed_recursive("ABCxxx")), ['ABCx', 'ABC'])
-        self.assertEqual(list(r.trimmed_recursive("ABChexxx")), ['ABC', 'ABChe'])
+        self.assertEqual(list(r.trim("ABCxxx")), ['ABCx', 'ABC'])
+        self.assertEqual(list(r.trim("ABChexxx")), ['ABC', 'ABChe'])
 
 
 class TestRemover(unittest.TestCase):
@@ -47,20 +47,20 @@ class TestRemover(unittest.TestCase):
         r = TripleTrimmer(prefixes_and_suffixes, prefixes_and_suffixes, [])
 
         with self.subTest('both'):
-            self.assertEqual(list(r.trimmed_recursive("word")), ["word"])
-            self.assertEqual(list(r.trimmed_recursive("pre1-abc")), ['abc'])
-            self.assertEqual(list(r.trimmed_recursive("pre22-pre1-abc")),
+            self.assertEqual(list(r.trim("word")), ["word"])
+            self.assertEqual(list(r.trim("pre1-abc")), ['abc'])
+            self.assertEqual(list(r.trim("pre22-pre1-abc")),
                              ['abc'])
-            self.assertEqual(list(r.trimmed_recursive("abc-suf1")), ['abc'])
-            self.assertEqual(list(r.trimmed_recursive("abc-suf1-suf22")),
+            self.assertEqual(list(r.trim("abc-suf1")), ['abc'])
+            self.assertEqual(list(r.trim("abc-suf1-suf22")),
                              ['abc'])
             self.assertEqual(
-                list(r.trimmed_recursive("pre22-pre1-abc-suf1-suf22")),
+                list(r.trim("pre22-pre1-abc-suf1-suf22")),
                 ['abc'])
 
-            self.assertEqual(list(r.trimmed_recursive("junk")), [''])
+            self.assertEqual(list(r.trim("junk")), [''])
             self.assertEqual(
-                list(r.trimmed_recursive("pre22-pre1-junk-suf1-suf22")), [''])
+                list(r.trim("pre22-pre1-junk-suf1-suf22")), [''])
 
     def test_triple(self):
         r = TripleTrimmer(
@@ -68,19 +68,19 @@ class TestRemover(unittest.TestCase):
             suffixes=['bb', 'bbb'],
             whole_words=["JUNK"])
 
-        self.assertEqual(r.trimmed_recursive('something'), ['something'])
-        self.assertEqual(r.trimmed_recursive('aasomething'), ['something'])
-        self.assertEqual(r.trimmed_recursive('aaasomething'),
+        self.assertEqual(r.trim('something'), ['something'])
+        self.assertEqual(r.trim('aasomething'), ['something'])
+        self.assertEqual(r.trim('aaasomething'),
                          ['asomething', 'something'])
 
-        self.assertEqual(r.trimmed_recursive('somethingaa'), ['somethingaa'])
-        self.assertEqual(r.trimmed_recursive('somethingbb'), ['something'])
-        self.assertEqual(r.trimmed_recursive('somethingbbb'),
+        self.assertEqual(r.trim('somethingaa'), ['somethingaa'])
+        self.assertEqual(r.trim('somethingbb'), ['something'])
+        self.assertEqual(r.trim('somethingbbb'),
                          ['somethingb', 'something'])
 
-        self.assertEqual(r.trimmed_recursive('JUNK'), [''])
-        self.assertEqual(r.trimmed_recursive('aaJUNKbb'), [''])
-        self.assertEqual(r.trimmed_recursive('aaaJUNKbbb'),
+        self.assertEqual(r.trim('JUNK'), [''])
+        self.assertEqual(r.trim('aaJUNKbb'), [''])
+        self.assertEqual(r.trim('aaaJUNKbbb'),
                          ['aJUNKb', 'JUNKb', 'aJUNK', ''])
 
     def test_shortest(self):

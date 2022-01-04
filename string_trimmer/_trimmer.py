@@ -13,28 +13,28 @@ def _add_if_absent(lst, item):
 
 
 class BaseTrimmer:
-    def trimmed_once(self, word: str) -> Iterable[str]:
+    def trim_once(self, word: str) -> Iterable[str]:
         raise NotImplementedError
 
-    def trimmed_recursive(self, word: str) -> List[str]:
+    def trim(self, word: str) -> List[str]:
         result: List[str] = []
-        for smaller in self.trimmed_once(word):
+        for smaller in self.trim_once(word):
             if smaller == word:
                 _add_if_absent(result, word)
             else:
-                for sub in self.trimmed_recursive(smaller):
+                for sub in self.trim(smaller):
                     _add_if_absent(result, sub)
         return result
 
     def shortest(self, word: str) -> str:
-        return sorted(self.trimmed_recursive(word), key=len)[0]
+        return sorted(self.trim(word), key=len)[0]
 
 
 class PrefixTrimmer(BaseTrimmer):
     def __init__(self, prefixes_or_suffixes: Iterable[str]):
         self._prefix_finder = Trie(prefixes_or_suffixes)
 
-    def trimmed_once(self, word: str) -> Iterable[str]:
+    def trim_once(self, word: str) -> Iterable[str]:
         found = False
         for pre in self._prefix_finder.prefixes(word):
             found = True
@@ -48,7 +48,7 @@ class SuffixTrimmer(BaseTrimmer):
     def __init__(self, prefixes_or_suffixes: Iterable[str]):
         self._suffix_finder = Trie(w[::-1] for w in prefixes_or_suffixes)
 
-    def trimmed_once(self, word: str) -> Iterable[str]:
+    def trim_once(self, word: str) -> Iterable[str]:
         found = False
         for pre in self._suffix_finder.prefixes(word[::-1]):
             found = True
@@ -75,7 +75,7 @@ class TripleTrimmer(BaseTrimmer):
     Since the unwanted parts can be of different lengths, the trimmed strings
     can also be different.
 
-    Therefore, the `trimmed_once` and `trimmed_recursive` methods return list
+    Therefore, the `trim_once` and `trim` methods return list
     of strings, not a single string.
 
     The `shortest` method returns a single string: the shortest possible
@@ -88,13 +88,13 @@ class TripleTrimmer(BaseTrimmer):
         self._suffix_finder = SuffixTrimmer(suffixes)
         self._whole_words = set(whole_words)
 
-    def trimmed_once(self, word: str) -> List[str]:
+    def trim_once(self, word: str) -> List[str]:
         result: List[str] = []
         if word in self._whole_words:
             _add_if_absent(result, '')
 
-        for trimmed in chain(self._suffix_finder.trimmed_once(word),
-                             self._prefix_finder.trimmed_once(word)):
+        for trimmed in chain(self._suffix_finder.trim_once(word),
+                             self._prefix_finder.trim_once(word)):
             if trimmed != word:
                 assert len(trimmed) < len(word) and trimmed in word
                 _add_if_absent(result, trimmed)
