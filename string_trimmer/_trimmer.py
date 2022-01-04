@@ -82,11 +82,13 @@ class TripleTrimmer(BaseTrimmer):
     when all unwanted parts removed.
     """
 
-    def __init__(self, prefixes: Iterable[str], suffixes: Iterable[str],
-                 whole_words: Iterable[str]):
-        self._prefix_finder = PrefixTrimmer(prefixes)
-        self._suffix_finder = SuffixTrimmer(suffixes)
-        self._whole_words = set(whole_words)
+    def __init__(self,
+                 prefixes: Iterable[str] = None,
+                 suffixes: Iterable[str] = None,
+                 whole_words: Iterable[str] = None):
+        self._prefix_finder = PrefixTrimmer(prefixes or [])
+        self._suffix_finder = SuffixTrimmer(suffixes or [])
+        self._whole_words = set(whole_words or [])
 
     def trim_once(self, word: str) -> List[str]:
         result: List[str] = []
