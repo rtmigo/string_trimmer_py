@@ -52,11 +52,12 @@ is equal to any of the `whole_words` elements.
 Since the unwanted parts can be of different lengths, the trimmed strings
 can also be different.
 
-Therefore, the `trim_once` and `trim` methods return list
-of strings, not a single string.
+The `trim` method will try to trim the word in every possible way, repeating 
+attempts recursively. The result will be a list of strings.
 
-The `shortest` method returns a single string: the shortest possible
-when all unwanted parts removed.
+The `shortest` method returns a single string: the first of the shortest 
+strings returned by `trim`.
+
 
 ## PrefixTrimmer and SuffixTrimmer
 
