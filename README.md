@@ -25,7 +25,8 @@ trimmer = TripleTrimmer(
     suffixes=["'ll"],
     whole_words=["he", "she", "they"])
 
-words = [trimmer.shortest(word) for word in "she'll eat an ice cream".split()]
+words = [trimmer.shortest(word) for word 
+         in "she'll eat an ice cream".split()]
 print(words)
 # ['', 'eat', '', 'ice', 'cream']
 ```
