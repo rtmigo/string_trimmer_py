@@ -11,8 +11,11 @@ trimmer = TripleTrimmer(
     whole_words=["Spam"]
 )
 
-print(trimmer.shortest("Copyright (c) The Umbrella Corp.")) # Umbrella
-print(trimmer.shortest("The Spam Ltd.")) # empty string
+print(trimmer.shortest("Copyright (c) The Umbrella Corp.")) 
+# Umbrella
+
+print(trimmer.shortest("The Spam Ltd.")) 
+# empty string
 ```
 
 ## Install
