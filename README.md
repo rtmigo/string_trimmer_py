@@ -1,5 +1,36 @@
 # [string_trimmer](https://github.com/rtmigo/string_trimmer_py)
 
+## Example
+
+```python3
+from string_trimmer import TripleTrimmer
+
+trimmer = TripleTrimmer(
+    prefixes=["A ", "The ", "Copyright ", "(c) "],
+    suffixes=[" Ltd.", " Corp."],
+    whole_words=["Spam"]
+)
+
+print(trimmer.shortest("Copyright (c) The Umbrella Corp.")) # Umbrella
+print(trimmer.shortest("The Spam Ltd.")) # empty string
+```
+
+## Install
+
+### pip
+
+```bash
+pip3 install git+https://github.com/rtmigo/string_trimmer_py#egg=string_trimmer
+```
+
+### setup.py
+
+```python3
+install_requires = [
+    "string_trimmer@ git+https://github.com/rtmigo/string_trimmer_py"
+]
+```
+
 ## TripleTrimmer
 
 `TripleTrimmer` removes unwanted parts from a string.
@@ -28,19 +59,3 @@ when all unwanted parts removed.
 
 These objects act exactly like the TripleTrimmer, but only remove the 
 corresponding parts of the strings.
-
-## Install
-
-### pip
-
-```bash
-pip3 install git+https://github.com/rtmigo/string_trimmer_py#egg=string_trimmer
-```
-
-### setup.py
-
-```python3
-install_requires = [
-    "string_trimmer@ git+https://github.com/rtmigo/string_trimmer_py"
-]
-```
