@@ -11,17 +11,32 @@ without prefixes, suffixes, etc.
 from string_trimmer import TripleTrimmer
 
 trimmer = TripleTrimmer(
-    prefixes=["A", "The", "Copyright", "(c)", " "],
-    suffixes=["Ltd.", "Corp.", " "],
-    whole_words=["Spam"]
+    prefixes=["mr", "mrs", " ", "."],
+    suffixes=["esq.", "phd", " "],
 )
 
-print(trimmer.shortest("Copyright (c) The Umbrella Corp."))
-# Umbrella
-
-print(trimmer.shortest("The Spam Ltd."))
-# empty string
+print(trimmer.shortest("Mr. John Doe Esq.".lower()))
+# john doe
 ```
+
+```python3
+from string_trimmer import TripleTrimmer
+
+trimmer = TripleTrimmer(
+    suffixes=["'ll"],
+    whole_words=["he", "she", "they"]
+)
+
+words = []
+for word in "she'll eat an ice cream".split():
+  trimmed = trimmer.shortest(word)
+  if trimmed:
+    words.append(trimmed)
+    
+print(words)
+# ['eat', 'ice', 'cream']
+```
+
 
 ## Install
 
