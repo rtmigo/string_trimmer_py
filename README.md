@@ -5,7 +5,7 @@
 Deletion occurs recursively in order to find the shortest possible string
 without prefixes, suffixes, etc.
 
-## Example
+## Examples
 
 ```python3
 from string_trimmer import TripleTrimmer
