@@ -86,19 +86,25 @@ class TripleTrimmer(BaseTrimmer):
                  prefixes: Iterable[str] = None,
                  suffixes: Iterable[str] = None,
                  words: Iterable[str] = None):
-        self._prefix_finder = PrefixTrimmer(prefixes or [])
-        self._suffix_finder = SuffixTrimmer(suffixes or [])
-        self._whole_words = set(words or [])
+        self._prefix_finder = PrefixTrimmer(prefixes) \
+            if prefixes is not None else None
+        self._suffix_finder = SuffixTrimmer(suffixes) \
+            if suffixes is not None else None
+        self._whole_words = set(words) if words is not None else tuple()
 
     def trim_once(self, word: str) -> List[str]:
         result: List[str] = []
         if word in self._whole_words:
             _add_if_absent(result, '')
 
-        for trimmed in chain(self._suffix_finder.trim_once(word),
-                             self._prefix_finder.trim_once(word)):
+        for trimmed in chain(
+                (self._suffix_finder.trim_once(word)
+                 if self._suffix_finder is not None else []),
+                (self._prefix_finder.trim_once(word)
+                 if self._prefix_finder is not None else [])):
             if trimmed != word:
-                assert len(trimmed) < len(word) and trimmed in word
+                assert len(trimmed) < len(word) \
+                       and (word.startswith(trimmed) or word.endswith(trimmed))
                 _add_if_absent(result, trimmed)
                 if trimmed in self._whole_words:
                     _add_if_absent(result, '')

@@ -20,7 +20,7 @@ from string_trimmer import TripleTrimmer
 
 trimmer = TripleTrimmer(
     suffixes=["'ll"],
-    words=["he", "she", "they"])
+    words=["he", "she", "they", "the", "a", "an"])
 
 words = [trimmer.shortest(word) for word 
          in "she'll eat an ice cream".split()]
