@@ -96,14 +96,34 @@ class TestTriple(unittest.TestCase):
         r = TripleTrimmer(
             prefixes=['aaa', 'aa'],
             suffixes=['bb', 'bbb'])
+        r.shortest('some string')
 
     def test_no_suffixes(self):
         r = TripleTrimmer(
             prefixes=['aaa', 'aa'],
             words=["JUNK"])
+        r.shortest('some string')
 
     def test_no_prefixes(self):
         r = TripleTrimmer(
             suffixes=['bb', 'bbb'],
             words=["JUNK"])
+        r.shortest('some string')
 
+    def test_doc1(self):
+        trimmer = TripleTrimmer(
+            prefixes=["mr.", "mrs.", " "],
+            suffixes=[" esq", " phd", "."])
+
+        self.assertEqual(trimmer.shortest("Mr. John Doe Esq.".lower()),
+                         "john doe")
+
+    def test_doc2(self):
+        trimmer = TripleTrimmer(
+            suffixes=["'ll"],
+            words=["he", "she", "they",
+                   "the", "a", "an"])
+
+        words = [trimmer.shortest(word) for word
+                 in "she'll eat an ice cream".split()]
+        self.assertEqual(words, ['', 'eat', '', 'ice', 'cream'])
